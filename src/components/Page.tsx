@@ -4,6 +4,16 @@ import ForceDirectedGraph from './ForceDirectedGraph'
 
 function Page() {
 
+    // var nodes_data =  [
+    //     {"name": "Travis", "sex": "M"},
+    //     {"name": "Rake", "sex": "M"},
+    //     {"name": "Diana", "sex": "F"},
+    //     {"name": "Rachel", "sex": "F"},
+    //     {"name": "Shawn", "sex": "M"},
+    //     {"name": "Emerald", "sex": "F"}
+    //     ]
+    
+
     return (
         <div>
             {/* <Graph
@@ -18,6 +28,7 @@ function Page() {
                     { id: 6, name: "node 6", dependsOn: [5] }
                 ]}
             /> */}
+            {/* <ForceDirectedGraph nodes={nodes_data}/> */}
             <ForceDirectedGraph/>
         </div>
     )
