@@ -24,14 +24,6 @@ function ForceDirectedGraph(props: ForceDirectedGraphProps) {
             height = +svg.attr("height");
 
             const nodes_data = nodes;
-            // var nodes_data: MyNode[] =  [
-            //     {"name": "Travis", "sex": "M"},
-            //     {"name": "Rake", "sex": "M"},
-            //     {"name": "Diana", "sex": "F"},
-            //     {"name": "Rachel", "sex": "F"},
-            //     {"name": "Shawn", "sex": "M"},
-            //     {"name": "Emerald", "sex": "F"}
-            //     ]
             
             const simulation = d3.forceSimulation()
                 .nodes(nodes_data);
@@ -56,24 +48,12 @@ function ForceDirectedGraph(props: ForceDirectedGraphProps) {
             //add tick instructions: 
             simulation.on("tick", tickActions );
 
-            // //Create links data 
+            //Create links data 
             const links_data = links;
-            // var links_data = [
-            //     {"source": "Travis", "target": "Rake"},
-            //     {"source": "Diana", "target": "Rake"},
-            //     {"source": "Diana", "target": "Rachel"},
-            //     {"source": "Rachel", "target": "Rake"},
-            //     {"source": "Rachel", "target": "Shawn"},
-            //     {"source": "Emerald", "target": "Rachel"}
-            // ]
-
-
 
             //Create the link force 
             //We need the id accessor to use named sources and targets 
-
             var link_force =  d3.forceLink(links_data)
-                                    // .id(function(d) { return d.name; })
                                     .id((d: any) => { return d.name; })
 
             //Add a links force to the simulation
@@ -105,12 +85,11 @@ function ForceDirectedGraph(props: ForceDirectedGraphProps) {
               }   
 
         }
-    }, [d3Container])
+    }, [d3Container, links, nodes])
 
     
     return (
         <div>
-            force directed graph
             <svg
                 className="d3-component"
                 width={400}
