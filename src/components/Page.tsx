@@ -4,14 +4,26 @@ import ForceDirectedGraph from './ForceDirectedGraph'
 
 function Page() {
 
-    // var nodes_data =  [
-    //     {"name": "Travis", "sex": "M"},
-    //     {"name": "Rake", "sex": "M"},
-    //     {"name": "Diana", "sex": "F"},
-    //     {"name": "Rachel", "sex": "F"},
-    //     {"name": "Shawn", "sex": "M"},
-    //     {"name": "Emerald", "sex": "F"}
-    //     ]
+    const nodes_data =  [
+        {"name": "Travis", "sex": "M"},
+        {"name": "Rake", "sex": "M"},
+        {"name": "Diana", "sex": "F"},
+        {"name": "Rachel", "sex": "F"},
+        {"name": "Shawn", "sex": "M"},
+        {"name": "Emerald", "sex": "F"}
+        ]
+
+    
+    //Create links data 
+    var links_data = [
+        {"source": "Travis", "target": "Rake"},
+        {"source": "Diana", "target": "Rake"},
+        {"source": "Diana", "target": "Rachel"},
+        {"source": "Rachel", "target": "Rake"},
+        {"source": "Rachel", "target": "Shawn"},
+        {"source": "Emerald", "target": "Rachel"}
+    ]
+
     
 
     return (
@@ -28,8 +40,8 @@ function Page() {
                     { id: 6, name: "node 6", dependsOn: [5] }
                 ]}
             /> */}
-            {/* <ForceDirectedGraph nodes={nodes_data}/> */}
-            <ForceDirectedGraph/>
+            <ForceDirectedGraph nodes={nodes_data} links={links_data}/>
+            {/* <ForceDirectedGraph/> */}
         </div>
     )
 }

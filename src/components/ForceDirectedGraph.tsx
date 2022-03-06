@@ -1,8 +1,19 @@
 import React, {useState, useEffect, useRef} from 'react'
 import * as d3 from 'd3';
-import { SimulationNodeDatum } from 'd3-force'
+import { SimulationNodeDatum, SimulationLinkDatum } from 'd3-force'
 
-function ForceDirectedGraph() {
+interface MyNode extends SimulationNodeDatum {
+    name: string;
+    sex: string;
+};
+
+interface ForceDirectedGraphProps {
+    nodes: MyNode[];
+    links: SimulationLinkDatum<SimulationNodeDatum>[];
+} 
+
+function ForceDirectedGraph(props: ForceDirectedGraphProps) {
+    const {nodes, links} = props;
     //create somewhere to put the force directed graph
     const d3Container = useRef(null);
 
@@ -12,19 +23,15 @@ function ForceDirectedGraph() {
             width = +svg.attr("width"),
             height = +svg.attr("height");
 
-            interface MyNode extends SimulationNodeDatum {
-                name: string;
-                sex: string;
-            };
-        
-            var nodes_data: MyNode[] =  [
-                {"name": "Travis", "sex": "M"},
-                {"name": "Rake", "sex": "M"},
-                {"name": "Diana", "sex": "F"},
-                {"name": "Rachel", "sex": "F"},
-                {"name": "Shawn", "sex": "M"},
-                {"name": "Emerald", "sex": "F"}
-                ]
+            const nodes_data = nodes;
+            // var nodes_data: MyNode[] =  [
+            //     {"name": "Travis", "sex": "M"},
+            //     {"name": "Rake", "sex": "M"},
+            //     {"name": "Diana", "sex": "F"},
+            //     {"name": "Rachel", "sex": "F"},
+            //     {"name": "Shawn", "sex": "M"},
+            //     {"name": "Emerald", "sex": "F"}
+            //     ]
             
             const simulation = d3.forceSimulation()
                 .nodes(nodes_data);
@@ -49,15 +56,16 @@ function ForceDirectedGraph() {
             //add tick instructions: 
             simulation.on("tick", tickActions );
 
-            //Create links data 
-            var links_data = [
-                {"source": "Travis", "target": "Rake"},
-                {"source": "Diana", "target": "Rake"},
-                {"source": "Diana", "target": "Rachel"},
-                {"source": "Rachel", "target": "Rake"},
-                {"source": "Rachel", "target": "Shawn"},
-                {"source": "Emerald", "target": "Rachel"}
-            ]
+            // //Create links data 
+            const links_data = links;
+            // var links_data = [
+            //     {"source": "Travis", "target": "Rake"},
+            //     {"source": "Diana", "target": "Rake"},
+            //     {"source": "Diana", "target": "Rachel"},
+            //     {"source": "Rachel", "target": "Rake"},
+            //     {"source": "Rachel", "target": "Shawn"},
+            //     {"source": "Emerald", "target": "Rachel"}
+            // ]
 
 
 
