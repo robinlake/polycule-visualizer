@@ -1,5 +1,7 @@
 import React from 'react'
 import Graph from './Graph'
+import NetworkGraph from './NetworkGraph'
+import NetworkGraphFunctional from './NetworkGraphFunctional'
 import ForceDirectedGraph from './ForceDirectedGraph'
 
 function Page() {
@@ -40,8 +42,9 @@ function Page() {
                     { id: 6, name: "node 6", dependsOn: [5] }
                 ]}
             /> */}
-            <ForceDirectedGraph nodes={nodes_data} links={links_data}/>
-            {/* <ForceDirectedGraph/> */}
+            {/* <ForceDirectedGraph nodes={nodes_data} links={links_data}/> */}
+            {/* <NetworkGraph /> */}
+            <NetworkGraphFunctional />
         </div>
     )
 }
