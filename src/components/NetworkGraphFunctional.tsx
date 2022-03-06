@@ -47,30 +47,33 @@ function NetworkGraphFunctional() {
   useEffect(() => {
     if (svgRef) {
       // size = 500;
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       svg = d3.select(svgRef.current)
         .append("svg")
         .attr("width", width)
         .attr("height", height)
-        .on('contextmenu', (event, d) => { event.preventDefault(); })
+        .on('contextmenu', (event, d) => { event.preventDefault(); }) 
   
       // set up initial nodes and links
       //  - nodes are known by 'id', not by index in array.
       //  - reflexive edges are indicated on the node (as a bold black circle).
       //  - links are always source < target; edge directions are set by 'left' and 'right'.
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       nodes = [
         { id: 0, reflexive: false },
         { id: 1, reflexive: true },
         { id: 2, reflexive: false }
       ];
-  
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       lastNodeId = 2;
-  
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       links = [
         { source: nodes[0], target: nodes[1], left: false, right: true },
         { source: nodes[1], target: nodes[2], left: false, right: true }
       ];
   
       // init D3 force layout
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       force = d3.forceSimulation()
         .force('link', d3.forceLink().id((d: any) => d.id).distance(150))
         .force('charge', d3.forceManyBody().strength(-500))
@@ -79,6 +82,7 @@ function NetworkGraphFunctional() {
         .on('tick', () => tick());
   
       // init D3 drag support
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       drag = d3.drag()
         // Mac Firefox doesn't distinguish between left/right click when Ctrl is held... 
         .filter((event, d) => event.button === 0 || event.button === 2)
@@ -123,12 +127,15 @@ function NetworkGraphFunctional() {
         .attr('fill', '#000');
   
       // line displayed when dragging new nodes
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       dragLine = svg.append('svg:path')
         .attr('class', 'link dragline hidden')
         .attr('d', 'M0,0L0,0');
   
       // handles to link and node element groups
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       path = svg.append('svg:g').selectAll('path');
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       circle = svg.append('svg:g').selectAll('g');
   
       // app starts here
