@@ -404,7 +404,9 @@ class NetworkGraph extends Component {
 
   render() {
     return (
-      <div ref={this.svgRef}> </div>
+        <div className="network-graph">
+            <div ref={this.svgRef}> </div>
+        </div>
     )
   }
 
