@@ -1,30 +1,30 @@
 import React from 'react'
-import Graph from './Graph'
-import NetworkGraph from './NetworkGraph'
+// import Graph from './Graph'
+// import NetworkGraph from './NetworkGraph'
 import NetworkGraphFunctional from './NetworkGraphFunctional'
-import ForceDirectedGraph from './ForceDirectedGraph'
+// import ForceDirectedGraph from './ForceDirectedGraph'
 
 function Page() {
 
-    const nodes_data =  [
-        {"name": "Travis", "sex": "M"},
-        {"name": "Rake", "sex": "M"},
-        {"name": "Diana", "sex": "F"},
-        {"name": "Rachel", "sex": "F"},
-        {"name": "Shawn", "sex": "M"},
-        {"name": "Emerald", "sex": "F"}
-        ]
+    // const nodes_data =  [
+    //     {"name": "Travis", "sex": "M"},
+    //     {"name": "Rake", "sex": "M"},
+    //     {"name": "Diana", "sex": "F"},
+    //     {"name": "Rachel", "sex": "F"},
+    //     {"name": "Shawn", "sex": "M"},
+    //     {"name": "Emerald", "sex": "F"}
+    //     ]
 
     
-    //Create links data 
-    var links_data = [
-        {"source": "Travis", "target": "Rake"},
-        {"source": "Diana", "target": "Rake"},
-        {"source": "Diana", "target": "Rachel"},
-        {"source": "Rachel", "target": "Rake"},
-        {"source": "Rachel", "target": "Shawn"},
-        {"source": "Emerald", "target": "Rachel"}
-    ]
+    // //Create links data 
+    // var links_data = [
+    //     {"source": "Travis", "target": "Rake"},
+    //     {"source": "Diana", "target": "Rake"},
+    //     {"source": "Diana", "target": "Rachel"},
+    //     {"source": "Rachel", "target": "Rake"},
+    //     {"source": "Rachel", "target": "Shawn"},
+    //     {"source": "Emerald", "target": "Rachel"}
+    // ]
 
     
 
