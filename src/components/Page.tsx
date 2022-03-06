@@ -43,7 +43,7 @@ function Page() {
                 ]}
             /> */}
             {/* <ForceDirectedGraph nodes={nodes_data} links={links_data}/> */}
-            <NetworkGraph />
+            {/* <NetworkGraph /> */}
             <NetworkGraphFunctional />
         </div>
     )
