@@ -1,15 +1,12 @@
 import React from 'react'
-import BarChart from './BarChart'
-// import ForceDirectedGraph from './ForceDirectedGraph'
 import Graph from './Graph'
+import ForceDirectedGraph from './ForceDirectedGraph'
 
 function Page() {
 
     return (
         <div>
-            This is the page
-            <BarChart/>
-            <Graph
+            {/* <Graph
                 width="100%"
                 nodes={[
                     { id: 1, name: "node 1", dependsOn: [] },
@@ -20,7 +17,8 @@ function Page() {
                     { id: 5, name: "node 5", dependsOn: [4, 7] },
                     { id: 6, name: "node 6", dependsOn: [5] }
                 ]}
-            />
+            /> */}
+            <ForceDirectedGraph/>
         </div>
     )
 }
