@@ -27,26 +27,13 @@ function NetworkGraphFunctional() {
   let mousedownLink: any = null;
   let mousedownNode: any = null;
   let mouseupNode: any = null;
-  // let selectedNode: any = null;
-  // let selectedLink: any = null;
-  // let mousedownLink: any = null;
-  // let mousedownNode: any = null;
-  // let mouseupNode: any = null;
 
   // only respond once per keydown
   let lastKeyDown = -1;
 
-  // constructor(props: any) {
-  //   super(props);
-  //   this.svgRef = React.createRef();
-  // }
-
-  // let size;
-
 
   useEffect(() => {
     if (svgRef) {
-      // size = 500;
       // eslint-disable-next-line react-hooks/exhaustive-deps
       svg = d3.select(svgRef.current)
         .append("svg")
