@@ -17,7 +17,6 @@ function NetworkGraphFunctional(props: GraphProps) {
     let colors = d3.scaleOrdinal(d3.schemeCategory10);
   
     let lastNodeId: number = 0;
-    let force: any;
     let drag: any;
     let dragLine: any;
   
@@ -34,7 +33,7 @@ function NetworkGraphFunctional(props: GraphProps) {
         lastNodeId = 2;
 
         // init D3 force layout
-        force = d3.forceSimulation()
+        const force = d3.forceSimulation()
           .force('link', d3.forceLink().id((d: any) => d.id).distance(150))
           .force('charge', d3.forceManyBody().strength(-500))
           .force('x', d3.forceX(width / 2))
@@ -260,7 +259,7 @@ function NetworkGraphFunctional(props: GraphProps) {
       // set the graph in motion
       force
         .nodes(nodes)
-        .force('link').links(links);
+        // .force('link').links(links);
   
       force.alphaTarget(0.3).restart();
     }
