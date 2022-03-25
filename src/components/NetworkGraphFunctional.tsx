@@ -17,8 +17,6 @@ function NetworkGraphFunctional(props: GraphProps) {
     let colors = d3.scaleOrdinal(d3.schemeCategory10);
   
     let lastNodeId: number = 0;
-    let drag: any;
-    let dragLine: any;
   
     // mouse event vars
     let selectedNode: any = null;
@@ -41,7 +39,7 @@ function NetworkGraphFunctional(props: GraphProps) {
           .on('tick', () => tick());
     
         // init D3 drag support
-        drag = d3.drag()
+        let drag = d3.drag()
           // Mac Firefox doesn't distinguish between left/right click when Ctrl is held... 
           .filter((event, d) => event.button === 0 || event.button === 2)
           .on('start', (event, d: any) => {
@@ -85,7 +83,7 @@ function NetworkGraphFunctional(props: GraphProps) {
           .attr('fill', '#000');
     
         // line displayed when dragging new nodes
-        dragLine = svg.append('svg:path')
+        let dragLine = svg.append('svg:path')
           .attr('class', 'link dragline hidden')
           .attr('d', 'M0,0L0,0');
     
