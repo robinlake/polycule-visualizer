@@ -103,8 +103,8 @@ function NetworkGraphFunctional(props: GraphProps) {
           .attr('d', 'M0,0L0,0');
     
         // handles to link and node element groups
-        let path = svg.append('svg:g').selectAll('path');
-        let circle = svg.append('svg:g').selectAll('g');
+        let link = svg.append('svg:g').selectAll('path');
+        let node = svg.append('svg:g').selectAll('g');
     
         // app starts here
         svg.on('mousedown', (event: any, d: any) => mousedown(event, d))
@@ -126,7 +126,7 @@ function NetworkGraphFunctional(props: GraphProps) {
     // update force layout (called automatically each iteration)
     function tick() {
       // draw directed edges with proper padding from node centers
-      path.attr('d', (d: any) => {
+      link.attr('d', (d: any) => {
         const deltaX = d.target.x - d.source.x;
         const deltaY = d.target.y - d.source.y;
         const dist = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -142,24 +142,24 @@ function NetworkGraphFunctional(props: GraphProps) {
         return `M${sourceX},${sourceY}L${targetX},${targetY}`;
       });
   
-      circle.attr('transform', (d: any) => `translate(${d.x},${d.y})`);
+      node.attr('transform', (d: any) => `translate(${d.x},${d.y})`);
     }
   
     // update graph (called when needed)
     function restart() {
       // path (link) group
-      path = path.data(links);
+      link = link.data(links);
   
       // update existing links
-      path.classed('selected', (d: any) => d === selectedLink)
+      link.classed('selected', (d: any) => d === selectedLink)
         .style('marker-start', (d: any) => d.left ? 'url(#start-arrow)' : '')
         .style('marker-end', (d: any) => d.right ? 'url(#end-arrow)' : '');
   
       // remove old links
-      path.exit().remove();
+      link.exit().remove();
   
       // add new links
-      path = path.enter().append('svg:path')
+      link = link.enter().append('svg:path')
         .attr('class', 'link')
         .classed('selected', (d: any) => d === selectedLink)
         .style('marker-start', (d: any) => d.left ? 'url(#start-arrow)' : '')
@@ -173,22 +173,22 @@ function NetworkGraphFunctional(props: GraphProps) {
           selectedNode = null;
           restart();
         })
-        .merge(path);
+        .merge(link);
   
       // circle (node) group
       // NB: the function arg is crucial here! nodes are known by id, not by index!
-      circle = circle.data(nodes, (d: any) => d.id);
+      node = node.data(nodes, (d: any) => d.id);
   
       // update existing nodes (reflexive & selected visual states)
-      circle.selectAll('circle')
+      node.selectAll('circle')
         .style('fill', (d: any) => (d === selectedNode) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id))
         .classed('reflexive', (d: any) => d.reflexive);
   
       // remove old nodes
-      circle.exit().remove();
+      node.exit().remove();
   
       // add new nodes
-      const g = circle.enter().append('svg:g');
+      const g = node.enter().append('svg:g');
   
       g.append('svg:circle')
         .attr('class', 'node')
@@ -269,7 +269,7 @@ function NetworkGraphFunctional(props: GraphProps) {
         // .text((d: any) => d.id);
         .text((d: any) => d.name);
   
-      circle = g.merge(circle);
+      node = g.merge(node);
   
       // set the graph in motion
       force
@@ -329,7 +329,7 @@ function NetworkGraphFunctional(props: GraphProps) {
   
       // ctrl
       if (event.keyCode === 17) {
-        circle.call(drag);
+        node.call(drag);
         svg.classed('ctrl', event.currentTarget);
         return;
       }
@@ -384,7 +384,7 @@ function NetworkGraphFunctional(props: GraphProps) {
   
       // ctrl
       if (event.keyCode === 17) {
-        circle.on('.drag', null);
+        node.on('.drag', null);
         svg.classed('ctrl', false);
       }
     }
