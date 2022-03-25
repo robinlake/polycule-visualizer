@@ -43,79 +43,77 @@ function NetworkGraphFunctional(props: GraphProps) {
     // only respond once per keydown
     let lastKeyDown = -1;
   
-        lastNodeId = 2;
+    // init D3 force layout
+    const force = d3.forceSimulation()
+      .force('link', d3.forceLink().id((d: any) => d.id).distance(150))
+      .force('charge', d3.forceManyBody().strength(-500))
+      .force('x', d3.forceX(width / 2))
+      .force('y', d3.forceY(height / 2))
+      .on('tick', () => tick());
+    
+    // init D3 drag support
+    let drag = d3.drag()
+      // Mac Firefox doesn't distinguish between left/right click when Ctrl is held... 
+      .filter((event, d) => event.button === 0 || event.button === 2)
+      .on('start', (event, d: any) => {
+        if (!event.active) force.alphaTarget(0.3).restart();
 
-        // init D3 force layout
-        const force = d3.forceSimulation()
-          .force('link', d3.forceLink().id((d: any) => d.id).distance(150))
-          .force('charge', d3.forceManyBody().strength(-500))
-          .force('x', d3.forceX(width / 2))
-          .force('y', d3.forceY(height / 2))
-          .on('tick', () => tick());
+        d.fx = d.x;
+        d.fy = d.y;
+      })
+      .on('drag', (event, d: any) => {
+        d.fx = event.x;
+        d.fy = event.y;
+      })
+      .on('end', (event, d: any) => {
+        if (!event.active) force.alphaTarget(0);
+
+        d.fx = null;
+        d.fy = null;
+      });
     
-        // init D3 drag support
-        let drag = d3.drag()
-          // Mac Firefox doesn't distinguish between left/right click when Ctrl is held... 
-          .filter((event, d) => event.button === 0 || event.button === 2)
-          .on('start', (event, d: any) => {
-            if (!event.active) force.alphaTarget(0.3).restart();
+    // define arrow markers for graph links
+    svg.append('svg:defs').append('svg:marker')
+      .attr('id', 'end-arrow')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 6)
+      .attr('markerWidth', 3)
+      .attr('markerHeight', 3)
+      .attr('orient', 'auto')
+      .append('svg:path')
+      .attr('d', 'M0,-5L10,0L0,5')
+      .attr('fill', '#000');
+
+    svg.append('svg:defs').append('svg:marker')
+      .attr('id', 'start-arrow')
+      .attr('viewBox', '0 -5 10 10')
+      .attr('refX', 4)
+      .attr('markerWidth', 3)
+      .attr('markerHeight', 3)
+      .attr('orient', 'auto')
+      .append('svg:path')
+      .attr('d', 'M10,-5L0,0L10,5')
+      .attr('fill', '#000');
     
-            d.fx = d.x;
-            d.fy = d.y;
-          })
-          .on('drag', (event, d: any) => {
-            d.fx = event.x;
-            d.fy = event.y;
-          })
-          .on('end', (event, d: any) => {
-            if (!event.active) force.alphaTarget(0);
-    
-            d.fx = null;
-            d.fy = null;
-          });
-    
-        // define arrow markers for graph links
-        svg.append('svg:defs').append('svg:marker')
-          .attr('id', 'end-arrow')
-          .attr('viewBox', '0 -5 10 10')
-          .attr('refX', 6)
-          .attr('markerWidth', 3)
-          .attr('markerHeight', 3)
-          .attr('orient', 'auto')
-          .append('svg:path')
-          .attr('d', 'M0,-5L10,0L0,5')
-          .attr('fill', '#000');
-    
-        svg.append('svg:defs').append('svg:marker')
-          .attr('id', 'start-arrow')
-          .attr('viewBox', '0 -5 10 10')
-          .attr('refX', 4)
-          .attr('markerWidth', 3)
-          .attr('markerHeight', 3)
-          .attr('orient', 'auto')
-          .append('svg:path')
-          .attr('d', 'M10,-5L0,0L10,5')
-          .attr('fill', '#000');
-    
-        // line displayed when dragging new nodes
-        let dragLine = svg.append('svg:path')
-          .attr('class', 'link dragline hidden')
-          .attr('d', 'M0,0L0,0');
-    
-        // handles to link and node element groups
-        let link = svg.append('svg:g').selectAll('path');
-        let node = svg.append('svg:g').selectAll('g');
-    
-        // app starts here
-        svg.on('mousedown', (event: any, d: any) => mousedown(event, d))
-          .on('mousemove', (event: any, d: any) => mousemove(event, d))
-          .on('mouseup', (event: any, d: any) => mouseup(event, d));
-    
-        d3.select(window)
-          .on('keydown', (event: any, d: any) => keydown(event, d))
-          .on('keyup', (event: any, d: any) => keyup(event, d));
-    
-        restart();
+    // line displayed when dragging new nodes
+    let dragLine = svg.append('svg:path')
+      .attr('class', 'link dragline hidden')
+      .attr('d', 'M0,0L0,0');
+
+    // handles to link and node element groups
+    let link = svg.append('svg:g').selectAll('path');
+    let node = svg.append('svg:g').selectAll('g');
+
+    // app starts here
+    svg.on('mousedown', (event: any, d: any) => mousedown(event, d))
+      .on('mousemove', (event: any, d: any) => mousemove(event, d))
+      .on('mouseup', (event: any, d: any) => mouseup(event, d));
+
+    d3.select(window)
+      .on('keydown', (event: any, d: any) => keydown(event, d))
+      .on('keyup', (event: any, d: any) => keyup(event, d));
+
+    restart();
   
     function resetMouseVars() {
       mousedownNode = null;
