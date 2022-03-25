@@ -46,14 +46,14 @@ function NetworkGraphFunctional() {
   
   
     // useEffect(() => {
-      if (svgRef) {
+      // if (svgRef) {
         // size = 500;
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        svg = d3.select(svgRef.current)
-          .append("svg")
-          .attr("width", width)
-          .attr("height", height)
-          .on('contextmenu', (event, d) => { event.preventDefault(); }) 
+        // svg = d3.select(svgRef.current)
+        //   .append("svg")
+        //   .attr("width", width)
+        //   .attr("height", height)
+        //   .on('contextmenu', (event, d) => { event.preventDefault(); }) 
     
         // set up initial nodes and links
         //  - nodes are known by 'id', not by index in array.
@@ -149,7 +149,7 @@ function NetworkGraphFunctional() {
           .on('keyup', (event: any, d: any) => keyup(event, d));
     
         restart();
-      }
+      // }
     // }, [svgRef])
   
     function resetMouseVars() {
