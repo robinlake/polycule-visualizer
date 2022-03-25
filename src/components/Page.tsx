@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import NetworkGraphFunctional from './NetworkGraphFunctional'
+import Results from './Results'
 
 function Page() {
     const [nodes, setNodes] = useState([
@@ -17,8 +18,11 @@ function Page() {
         <div>
             <NetworkGraphFunctional
                 nodes={nodes}
+                setNodes={setNodes}
                 links={links}
+                setLinks={setLinks}
             />
+            <Results nodes={nodes.length} />
         </div>
     )
 }

@@ -4,7 +4,9 @@ import { useD3 } from '../hooks/useD3';
 
 interface GraphProps {
   nodes: any;
+  setNodes: any;
   links: any;
+  setLinks: any;
 }
 
 function NetworkGraphFunctional(props: GraphProps) {

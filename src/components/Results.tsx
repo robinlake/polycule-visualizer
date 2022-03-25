@@ -1,8 +1,15 @@
 import React from 'react'
 
-function Results() {
+interface ResultsProps {
+    nodes: any;
+}
+
+function Results(props: ResultsProps) {
+    const {nodes} = props;
   return (
-    <div>Results</div>
+    <div>Results
+        <p>Nodes: {nodes}</p>
+    </div>
   )
 }
 
