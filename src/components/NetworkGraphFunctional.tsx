@@ -9,6 +9,19 @@ interface GraphProps {
   setLinks?: any;
 }
 
+interface Node {
+  id: number;
+  reflexive: boolean;
+  name: string;
+}
+
+interface Link {
+  source: Node;
+  target: Node;
+  left: boolean;
+  right: boolean;
+}
+
 function NetworkGraphFunctional(props: GraphProps) {
   const {nodes, links} = props;
   const svgRef = useD3((svg: any) => {
@@ -19,8 +32,8 @@ function NetworkGraphFunctional(props: GraphProps) {
     let lastNodeId: number = 0;
   
     // mouse event vars
-    let selectedNode: any = null;
-    let selectedLink: any = null;
+    let selectedNode: Node | null = null;
+    let selectedLink: Link | null = null;
     let mousedownLink: any = null;
     let mousedownNode: any = null;
     let mouseupNode: any = null;
