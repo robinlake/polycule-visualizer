@@ -2,15 +2,21 @@ import React, {useRef, useEffect } from 'react';
 import * as d3 from "d3";
 import { useD3 } from '../hooks/useD3';
 
-function NetworkGraphFunctional() {
+interface GraphProps {
+  nodes: any;
+  links: any;
+}
+
+function NetworkGraphFunctional(props: GraphProps) {
+  const {nodes, links} = props;
   const svgRef = useD3((svg: any) => {
     let width = 960;
     let height = 500;
     let colors = d3.scaleOrdinal(d3.schemeCategory10);
   
-    let nodes = new Array<any>();
+    // let nodes = new Array<any>();
     let lastNodeId: number = 0;
-    let links = new Array<any>();
+    // let links = new Array<any>();
     let force: any;
     let drag: any;
     let dragLine: any;
@@ -27,16 +33,16 @@ function NetworkGraphFunctional() {
     // only respond once per keydown
     let lastKeyDown = -1;
   
-        nodes = [
-          { id: 0, reflexive: false },
-          { id: 1, reflexive: true },
-          { id: 2, reflexive: false }
-        ];
+        // nodes = [
+        //   { id: 0, reflexive: false },
+        //   { id: 1, reflexive: true },
+        //   { id: 2, reflexive: false }
+        // ];
         lastNodeId = 2;
-        links = [
-          { source: nodes[0], target: nodes[1], left: false, right: true },
-          { source: nodes[1], target: nodes[2], left: false, right: true }
-        ];
+        // links = [
+        //   { source: nodes[0], target: nodes[1], left: false, right: true },
+        //   { source: nodes[1], target: nodes[2], left: false, right: true }
+        // ];
     
         // init D3 force layout
         force = d3.forceSimulation()
@@ -305,7 +311,7 @@ function NetworkGraphFunctional() {
     }
   
     function spliceLinksForNode(node: any) {
-      const toSplice = links.filter((l) => l.source === node || l.target === node);
+      const toSplice = links.filter((l: any) => l.source === node || l.target === node);
       for (const l of toSplice) {
         links.splice(links.indexOf(l), 1);
       }
