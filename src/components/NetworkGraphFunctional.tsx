@@ -4,9 +4,9 @@ import { useD3 } from '../hooks/useD3';
 
 interface GraphProps {
   nodes: any;
-  setNodes: any;
+  setNodes?: any;
   links: any;
-  setLinks: any;
+  setLinks?: any;
 }
 
 function NetworkGraphFunctional(props: GraphProps) {
@@ -16,14 +16,10 @@ function NetworkGraphFunctional(props: GraphProps) {
     let height = 500;
     let colors = d3.scaleOrdinal(d3.schemeCategory10);
   
-    // let nodes = new Array<any>();
     let lastNodeId: number = 0;
-    // let links = new Array<any>();
     let force: any;
     let drag: any;
     let dragLine: any;
-    let path: any;
-    let circle: any;
   
     // mouse event vars
     let selectedNode: any = null;
@@ -35,17 +31,8 @@ function NetworkGraphFunctional(props: GraphProps) {
     // only respond once per keydown
     let lastKeyDown = -1;
   
-        // nodes = [
-        //   { id: 0, reflexive: false },
-        //   { id: 1, reflexive: true },
-        //   { id: 2, reflexive: false }
-        // ];
         lastNodeId = 2;
-        // links = [
-        //   { source: nodes[0], target: nodes[1], left: false, right: true },
-        //   { source: nodes[1], target: nodes[2], left: false, right: true }
-        // ];
-    
+
         // init D3 force layout
         force = d3.forceSimulation()
           .force('link', d3.forceLink().id((d: any) => d.id).distance(150))
@@ -104,8 +91,8 @@ function NetworkGraphFunctional(props: GraphProps) {
           .attr('d', 'M0,0L0,0');
     
         // handles to link and node element groups
-        path = svg.append('svg:g').selectAll('path');
-        circle = svg.append('svg:g').selectAll('g');
+        let path = svg.append('svg:g').selectAll('path');
+        let circle = svg.append('svg:g').selectAll('g');
     
         // app starts here
         svg.on('mousedown', (event: any, d: any) => mousedown(event, d))
@@ -200,7 +187,7 @@ function NetworkGraphFunctional(props: GraphProps) {
         .on('mouseover', (event: any, d: any) => {
           if (!mousedownNode || d === mousedownNode) return;
           // enlarge target node
-          d3.select(event.currentTarget).attr('transform', 'scale(1.1)');
+          d3.select(event.currentTarget).attr('transform', 'scale(1.3)');
         })
         .on('mouseout', (event: any, d: any) => {
           if (!mousedownNode || d === mousedownNode) return;
@@ -265,7 +252,8 @@ function NetworkGraphFunctional(props: GraphProps) {
         .attr('x', 0)
         .attr('y', 4)
         .attr('class', 'id')
-        .text((d: any) => d.id);
+        // .text((d: any) => d.id);
+        .text((d: any) => d.name);
   
       circle = g.merge(circle);
   

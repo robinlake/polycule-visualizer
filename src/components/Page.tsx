@@ -4,9 +4,9 @@ import Results from './Results'
 
 function Page() {
     const [nodes, setNodes] = useState([
-        { id: 0, reflexive: false },
-        { id: 1, reflexive: true },
-        { id: 2, reflexive: false }
+        { id: 0, reflexive: false, name: 'name1' },
+        { id: 1, reflexive: true, name: 'name2' },
+        { id: 2, reflexive: false, name: 'name3' }
       ]);
 
     const [links, setLinks] = useState([
@@ -14,13 +14,14 @@ function Page() {
         { source: nodes[1], target: nodes[2], left: false, right: true }
       ]);
 
+
     return (
         <div>
             <NetworkGraphFunctional
                 nodes={nodes}
-                setNodes={setNodes}
+                // setNodes={setNodes}
                 links={links}
-                setLinks={setLinks}
+                // setLinks={setLinks}
             />
             <Results nodes={nodes.length} />
         </div>
