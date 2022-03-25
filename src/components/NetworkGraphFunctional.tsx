@@ -13,6 +13,8 @@ interface Node {
   id: number;
   reflexive: boolean;
   name: string;
+  x: number;
+  y: number;
 }
 
 interface Link {
@@ -34,9 +36,9 @@ function NetworkGraphFunctional(props: GraphProps) {
     // mouse event vars
     let selectedNode: Node | null = null;
     let selectedLink: Link | null = null;
-    let mousedownLink: any = null;
-    let mousedownNode: any = null;
-    let mouseupNode: any = null;
+    let mousedownLink: Link | null = null;
+    let mousedownNode: Node | null = null;
+    let mouseupNode: Node | null = null;
   
     // only respond once per keydown
     let lastKeyDown = -1;
@@ -213,11 +215,12 @@ function NetworkGraphFunctional(props: GraphProps) {
           selectedLink = null;
   
           // reposition drag line
-          dragLine
-            .style('marker-end', 'url(#end-arrow)')
-            .classed('hidden', false)
-            .attr('d', `M${mousedownNode.x},${mousedownNode.y}L${mousedownNode.x},${mousedownNode.y}`);
-  
+          if (mousedownNode) {
+            dragLine
+              .style('marker-end', 'url(#end-arrow)')
+              .classed('hidden', false)
+              .attr('d', `M${mousedownNode.x},${mousedownNode.y}L${mousedownNode.x},${mousedownNode.y}`);
+          }
           restart();
         })
         .on('mouseup', (event: any, d: any) => {
@@ -240,20 +243,21 @@ function NetworkGraphFunctional(props: GraphProps) {
   
           // add link to graph (update if exists)
           // NB: links are strictly source < target; arrows separately specified by booleans
-          const isRight = mousedownNode.id < mouseupNode.id;
-          const source = isRight ? mousedownNode : mouseupNode;
-          const target = isRight ? mouseupNode : mousedownNode;
-  
-          let link = links.filter((l: any) => l.source === source && l.target === target)[0];
-          if (link) {
-            link[isRight ? 'right' : 'left'] = true;
-          } else {
-            links.push({ source, target, left: !isRight, right: isRight });
+          if (mousedownNode && mouseupNode)  {
+            const isRight = mousedownNode.id < mouseupNode.id;
+            const source = isRight ? mousedownNode : mouseupNode;
+            const target = isRight ? mouseupNode : mousedownNode;
+    
+            let link = links.filter((l: any) => l.source === source && l.target === target)[0];
+            if (link) {
+              link[isRight ? 'right' : 'left'] = true;
+            } else {
+              links.push({ source, target, left: !isRight, right: isRight });
+            }
+            // select new link
+            selectedLink = link;
+            selectedNode = null;
           }
-  
-          // select new link
-          selectedLink = link;
-          selectedNode = null;
           restart();
         });
   
