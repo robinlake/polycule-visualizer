@@ -95,8 +95,14 @@ const d3GraphLogic = (svg: any, nodes: Node[], links: Link[]) => {
             .attr('r', 12)
             .style('fill', (d: any) => (d === selectedNode) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id))
             .style('stroke', (d: any) => d3.rgb(colors(d.id)).darker().toString())
-            .classed('reflexive', (d: any) => d.reflexive)
-    
+            .classed('reflexive', (d: any) => d.reflexive);
+        // show node IDs
+        node.append('svg:text')
+            .attr('x', 0)
+            .attr('y', 4)
+            .attr('class', 'id')
+            // .text((d: any) => d.id);
+            .text((d: any) => d.name);
 
     // Initialize the links
     const link = svg.selectAll(".links")
