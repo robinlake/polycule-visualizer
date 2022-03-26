@@ -169,9 +169,6 @@ const d3GraphLogic = (svg: any, nodes: Node[], links: Link[]) => {
           .style('fill', (d: any) => (d === selectedNode) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id))
           .classed('reflexive', (d: any) => d.reflexive);
     
-        // remove old nodes
-        node.exit().remove();
-    
         // add new nodes
         const g = node.enter().append('svg:g');
     
@@ -191,13 +188,6 @@ const d3GraphLogic = (svg: any, nodes: Node[], links: Link[]) => {
           .text((d: any) => d.name);
     
         node = g.merge(node);
-    
-        // set the graph in motion
-        simulation
-          .nodes(nodes)
-        //   .force('link').links(links);
-    
-        simulation.alphaTarget(0.3).restart();
       }
       restart();
 }

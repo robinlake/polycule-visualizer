@@ -18,10 +18,10 @@ function Page() {
 
     return (
         <div>
-            <NetworkGraphFunctional
+            {/* <NetworkGraphFunctional
                 nodes={nodes}
                 links={links}
-            />
+            /> */}
             <NewGraph
                 nodes={nodes}
                 links={links}
