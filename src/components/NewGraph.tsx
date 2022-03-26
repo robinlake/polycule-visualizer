@@ -102,13 +102,15 @@ const d3GraphLogic = (svg: any, nodes: Node[], links: Link[]) => {
     const link = svg.selectAll(".links")
         .data(links)
         .enter()
-        // .append("g")
         .append("path")
-        .attr("class", "links")
-        
-        // link.append('line')
-        .attr("stroke-width", 3)
-        .style("stroke", "#aaa")
+            .attr("class", "links")
+            .attr("stroke-width", 3)
+            .style("stroke", "#aaa")
+            .attr('class', 'link')
+            .classed('selected', (d: any) => d === selectedLink)
+            .style('marker-start', (d: any) => d.left ? 'url(#start-arrow)' : '')
+            .style('marker-end', (d: any) => d.right ? 'url(#end-arrow)' : '')
+
 
     // let link = svg.append('svg:g').selectAll('path');
     // let node = svg.append('svg:g').selectAll('g');
