@@ -31,16 +31,16 @@ function NewGraph(props: GraphProps) {
 
   return (
     <div>NewGraph
-            <svg ref={svgRef}
-    style={{
-      height: 500,
-      width: "100%",
-      marginRight: "0px",
-      marginLeft: "0px",
-    }}
-    >
-      <g className="network-graph-functional"/>
-    </svg>
+        <svg ref={svgRef}
+            style={{
+            height: 500,
+            width: "100%",
+            marginRight: "0px",
+            marginLeft: "0px",
+            }}
+        >
+            <g className="network-graph-functional"/>
+        </svg>
     </div>
   )
 }
@@ -101,7 +101,6 @@ const d3GraphLogic = (svg: any, nodes: Node[], links: Link[]) => {
             .attr('x', 0)
             .attr('y', 4)
             .attr('class', 'id')
-            // .text((d: any) => d.id);
             .text((d: any) => d.name);
 
     // Initialize the links
@@ -117,11 +116,6 @@ const d3GraphLogic = (svg: any, nodes: Node[], links: Link[]) => {
             .style('marker-start', (d: any) => d.left ? 'url(#start-arrow)' : '')
             .style('marker-end', (d: any) => d.right ? 'url(#end-arrow)' : '')
 
-
-    // let link = svg.append('svg:g').selectAll('path');
-    // let node = svg.append('svg:g').selectAll('g');
-    
-    
     // Initialize D3 force simulation
     const simulation = d3.forceSimulation(nodes)
         .force('link', d3.forceLink().id((d: any) => d.id).distance(150))
@@ -150,55 +144,4 @@ const d3GraphLogic = (svg: any, nodes: Node[], links: Link[]) => {
 
       node.attr('transform', (d: any) => `translate(${d.x},${d.y})`);  
     }
-
-    // function restart() {
-    //     // path (link) group
-    //     link = link.data(links);
-    
-    //     // update existing links
-    //     link.classed('selected', (d: any) => d === selectedLink)
-    //       .style('marker-start', (d: any) => d.left ? 'url(#start-arrow)' : '')
-    //       .style('marker-end', (d: any) => d.right ? 'url(#end-arrow)' : '');
-    
-    //     // remove old links
-    //     link.exit().remove();
-    
-    //     // add new links
-    //     link = link.enter().append('svg:path')
-    //       .attr('class', 'link')
-    //       .classed('selected', (d: any) => d === selectedLink)
-    //       .style('marker-start', (d: any) => d.left ? 'url(#start-arrow)' : '')
-    //       .style('marker-end', (d: any) => d.right ? 'url(#end-arrow)' : '')
-    //       .merge(link);
-    
-    //     // circle (node) group
-    //     // NB: the function arg is crucial here! nodes are known by id, not by index!
-    //     node = node.data(nodes, (d: any) => d.id);
-    
-    //     // update existing nodes (reflexive & selected visual states)
-    //     node.selectAll('circle')
-    //       .style('fill', (d: any) => (d === selectedNode) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id))
-    //       .classed('reflexive', (d: any) => d.reflexive);
-    
-    //     // add new nodes
-    //     const g = node.enter().append('svg:g');
-    
-    //     g.append('svg:circle')
-    //       .attr('class', 'node')
-    //       .attr('r', 12)
-    //       .style('fill', (d: any) => (d === selectedNode) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id))
-    //       .style('stroke', (d: any) => d3.rgb(colors(d.id)).darker().toString())
-    //       .classed('reflexive', (d: any) => d.reflexive)
-    
-    //     // show node IDs
-    //     g.append('svg:text')
-    //       .attr('x', 0)
-    //       .attr('y', 4)
-    //       .attr('class', 'id')
-    //       // .text((d: any) => d.id);
-    //       .text((d: any) => d.name);
-    
-    //     node = g.merge(node);
-    //   }
-    //   restart();
 }
