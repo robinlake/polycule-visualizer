@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import NewGraph from './NewGraph'
 import NetworkGraphFunctional from './NetworkGraphFunctional'
 import Results from './Results'
 
@@ -19,9 +20,11 @@ function Page() {
         <div>
             <NetworkGraphFunctional
                 nodes={nodes}
-                // setNodes={setNodes}
                 links={links}
-                // setLinks={setLinks}
+            />
+            <NewGraph
+                nodes={nodes}
+                links={links}
             />
             <Results nodes={nodes.length} />
         </div>
