@@ -199,7 +199,7 @@ function NetworkGraphFunctional() {
           // unenlarge target node
           d3.select(event?.currentTarget).attr('transform', '');
         })
-        .on('mousedown', (event: any, d: any) => {
+        .on('pointerdown', (event: any, d: any) => {
           if (event.ctrlKey) return;
   
           // select node
@@ -215,7 +215,7 @@ function NetworkGraphFunctional() {
   
           restart();
         })
-        .on('mouseup', (event: any, d: any) => {
+        .on('pointerup', (event: any, d: any) => {
           if (!mousedownNode) return;
   
           // needed by FF
