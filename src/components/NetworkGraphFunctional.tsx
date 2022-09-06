@@ -4,8 +4,10 @@ import { useD3 } from '../hooks/useD3';
 
 function NetworkGraphFunctional() {
   const svgRef = useD3((svg: any) => {
-    let width = 960;
-    let height = 500;
+    //let width = 960;
+    let width = window.innerWidth;
+    //let height = 500;
+    let height = window.innerHeight;
     let colors = d3.scaleOrdinal(d3.schemeCategory10);
   
     let nodes = new Array<any>();
@@ -67,26 +69,7 @@ function NetworkGraphFunctional() {
             d.fy = null;
           });
 
-        // drag events for mobile
-        const dragStart = (event: any, d: any) => {
-          if (!event.active) force.alphaTarget(0.3).restart();
-    
-          d.fx = d.x;
-          d.fy = d.y; 
-        }
-        const dragMove = (event: any, d: any) => {
-          d.fx = event.x;
-          d.fy = event.y;
-        }
-        const dragEnd = (event: any, d: any) => {
-            if (!event.active) force.alphaTarget(0);
-    
-            d.fx = null;
-            d.fy = null;
-        }
-        d3.select("svg").on("touchstart", dragStart);
-        d3.select("svg").on("touchmove", dragMove);
-        d3.select("svg").on("touchend", dragEnd);
+
     
         // define arrow markers for graph links
         svg.append('svg:defs').append('svg:marker')
@@ -124,7 +107,30 @@ function NetworkGraphFunctional() {
         svg.on('mousedown', (event: any, d: any) => mousedown(event, d))
           .on('mousemove', (event: any, d: any) => mousemove(event, d))
           .on('mouseup', (event: any, d: any) => mouseup(event, d));
+        
+        // drag events for mobile
+        // const dragStart = (event: any, d: any) => {
+        //   if (!event.active) force.alphaTarget(0.3).restart();
     
+        //   d.fx = d.x;
+        //   d.fy = d.y; 
+        // }
+        // const dragMove = (event: any, d: any) => {
+        //   d.fx = event.x;
+        //   d.fy = event.y;
+        // }
+        // const dragEnd = (event: any, d: any) => {
+        //     if (!event.active) force.alphaTarget(0);
+    
+        //     d.fx = null;
+        //     d.fy = null;
+        // }
+        //svg.on("touchstart", dragStart);
+        //svg.on("touchmove", dragMove);
+        //svg.on("touchend", dragEnd);
+        //svg.on("touchstart", (event: any, d: any) => mousedown(event, d));
+        //svg.on("touchmove", (event: any, d: any) => mousemove(event, d));
+        //svg.on("touchend", (event: any, d: any) => mouseup(event, d));
         d3.select(window)
           .on('keydown', (event: any, d: any) => keydown(event, d))
           .on('keyup', (event: any, d: any) => keyup(event, d));
@@ -404,10 +410,10 @@ function NetworkGraphFunctional() {
   return (
     <svg ref={svgRef}
     style={{
-      height: 500,
-      width: "100%",
-      marginRight: "0px",
-      marginLeft: "0px",
+//      height: 500,
+//      width: "100%",
+//      marginRight: "0px",
+//      marginLeft: "0px",
     }}
     >
       <g className="network-graph-functional"/>

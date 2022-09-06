@@ -1,5 +1,12 @@
 .App {
-  text-align: center;
+  // text-align: center;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: 100%;
+  grid-template-rows: 100%;
 }
 
 @import './components/NetworkGraph.scss'
