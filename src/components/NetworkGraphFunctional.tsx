@@ -66,6 +66,27 @@ function NetworkGraphFunctional() {
             d.fx = null;
             d.fy = null;
           });
+
+        // drag events for mobile
+        const dragStart = (event: any, d: any) => {
+          if (!event.active) force.alphaTarget(0.3).restart();
+    
+          d.fx = d.x;
+          d.fy = d.y; 
+        }
+        const dragMove = (event: any, d: any) => {
+          d.fx = event.x;
+          d.fy = event.y;
+        }
+        const dragEnd = (event: any, d: any) => {
+            if (!event.active) force.alphaTarget(0);
+    
+            d.fx = null;
+            d.fy = null;
+        }
+        d3.select("svg").on("touchstart", dragStart);
+        d3.select("svg").on("touchmove", dragMove);
+        d3.select("svg").on("touchend", dragEnd);
     
         // define arrow markers for graph links
         svg.append('svg:defs').append('svg:marker')
